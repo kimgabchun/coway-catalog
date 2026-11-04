@@ -230,7 +230,7 @@ document.getElementById('singleView').onclick=()=>setViewMode(1);
 document.getElementById('dualView').onclick=()=>setViewMode(2);
 
 function render(){updateSpread();pic.src='single_pages/'+String(n).padStart(3,'0')+'.webp';$('pg').value=n;$('status').textContent=n+' / '+N+'페이지 · 검색은 PDF 원문 텍스트 기준';history.replaceState(null,'','#p='+n);pic.onload=fit;}
-/* COWAY_SPREAD_FIT_V2 */function fit(){let w=pic.naturalWidth||900;if(viewMode===2){w+=(rightPic.naturalWidth||w);} base=Math.min(1, (stage.clientWidth-18)/w);scale=1;apply()}
+/* COWAY_SPREAD_FIT_V2 */function fit(){let w=pic.naturalWidth||900;if(viewMode===2){w+=(rightPic.naturalWidth||w);} /* COWAY_WIDTH_FIT_V1 */base=Math.max(0.01,(stage.clientWidth-18)/w);scale=1;apply()}
 function apply(){pic.style.width=(pic.naturalWidth*base*scale)+'px';rightPic.style.width=(pic.naturalWidth*base*scale)+'px';$('zoom').textContent=Math.round(scale*100)+'%';}
 function go(v){n=Math.max(1,Math.min(N,Number(v)||1));stage.scrollTop=0;stage.scrollLeft=0;render()}
 $('prev').onclick=()=>go(n-(viewMode===2?2:1));$('next').onclick=()=>go(n+(viewMode===2?2:1));$('pg').onchange=e=>go(e.target.value);$('fit').onclick=fit;$('plus').onclick=()=>{scale=Math.min(6,scale*1.3);apply()};$('minus').onclick=()=>{scale=Math.max(.5,scale/1.3);apply()};
